@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fine Dining Invitation</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Georgia, serif;
+      background:
+        linear-gradient(rgba(8, 4, 4, 0.58), rgba(8, 4, 4, 0.86)),
+        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      color: #fff3dc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 25%, rgba(212, 175, 55, 0.22), transparent 28%),
+        radial-gradient(circle at 85% 20%, rgba(150, 20, 35, 0.38), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(100, 20, 20, 0.38), transparent 35%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 760px;
+      background: rgba(18, 12, 9, 0.93);
+      border: 1px solid rgba(212, 175, 55, 0.68);
+      border-radius: 28px;
+      padding: 42px 32px;
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+      animation: fadeIn 0.9s ease;
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -80px;
+      left: -80px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.18), transparent 70%);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      bottom: -90px;
+      right: -90px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(130, 20, 35, 0.25), transparent 70%);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .small-title {
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 12px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: 42px;
+      font-weight: normal;
+      color: #fff5dd;
+      margin-bottom: 18px;
+    }
+
+    .photo-frame {
+      width: 170px;
+      height: 170px;
+      margin: 8px auto 26px;
+      border-radius: 50%;
+      padding: 5px;
+      background: linear-gradient(135deg, #d4af37, #fff1b8, #9b741c);
+      box-shadow:
+        0 0 25px rgba(212, 175, 55, 0.28),
+        0 12px 30px rgba(0, 0, 0, 0.45);
+      position: relative;
+    }
+
+    .photo-frame::after {
+      content: "❤";
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #d4af37;
+      font-size: 22px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      border: 3px solid rgba(20, 12, 8, 0.95);
+    }
+
+    .subtitle {
+      color: #ddcaa5;
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .gold-line {
+      width: 90px;
+      height: 1px;
+      background: #d4af37;
+      margin: 28px auto;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      transition: 0.3s ease;
+    }
+
+    .main-btn {
+      background: #d4af37;
+      color: #1b1208;
+      padding: 14px 32px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin: 6px;
+    }
+
+    .main-btn:hover:not(:disabled) {
+      background: #fff0b0;
+      transform: translateY(-2px);
+    }
+
+    .main-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .secondary-btn {
+      background: transparent;
+      color: #d4af37;
+      border: 1px solid rgba(212, 175, 55, 0.6);
+      padding: 13px 28px;
+      border-radius: 999px;
+      font-size: 15px;
+      margin: 6px;
+    }
+
+    .secondary-btn:hover {
+      background: rgba(212, 175, 55, 0.15);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .show {
+      display: block;
+    }
+
+    .countdown-title {
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .lock-note {
+      color: #cbb78d;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-top: -8px;
+      margin-bottom: 18px;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 20px 0 26px;
+    }
+
+    .count-box {
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 16px;
+      padding: 14px 8px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .count-number {
+      font-size: 26px;
+      color: #fff5dd;
+      font-weight: bold;
+    }
+
+    .count-label {
+      color: #d4af37;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 5px;
+    }
+
+    .question-box {
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .question {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .question p {
+      color: #fff4dc;
+      font-size: 17px;
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+
+    .option {
+      display: block;
+      width: 100%;
+      margin-top: 9px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f7ead1;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      text-align: left;
+      font-size: 15px;
+    }
+
+    .option:hover {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: rgba(212, 175, 55, 0.65);
+    }
+
+    .option.selected {
+      background: rgba(212, 175, 55, 0.9);
+      color: #1b1208;
+      border-color: #d4af37;
+      font-weight: bold;
+    }
+
+    .detail-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 26px;
+    }
+
+    .detail-card {
+      background: rgba(255, 255, 255, 0.045);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .detail-label {
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .detail-value {
+      color: #fff6e6;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .love-note {
+      margin-top: 28px;
+      color: #ddcaa5;
+      font-size: 16px;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    .heart {
+      position: fixed;
+      top: -20px;
+      color: rgba(255, 205, 220, 0.85);
+      animation: fall linear forwards;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .music-status {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 5;
+      background: rgba(18, 12, 9, 0.92);
+      border: 1px solid rgba(212, 175, 55, 0.6);
+      color: #d4af37;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 14px;
+        align-items: flex-start;
+      }
+
+      .card {
+        margin-top: 18px;
+        padding: 30px 18px;
+        border-radius: 22px;
+      }
+
+      h1 {
+        font-size: 31px;
+      }
+
+      .small-title {
+        font-size: 10px;
+        letter-spacing: 3px;
+      }
+
+      .photo-frame {
+        width: 135px;
+        height: 135px;
+      }
+
+      .subtitle,
+      .detail-value {
+        font-size: 15.5px;
+      }
+
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .count-number {
+        font-size: 23px;
+      }
+
+      .music-status {
+        right: 10px;
+        bottom: 10px;
+        font-size: 12px;
+        padding: 9px 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <button class="music-status" id="musicBtn" onclick="toggleMusic()">
+    Tap To Play Music
+  </button>
+
+  <div class="card">
+    <div class="content">
+
+      <div id="intro" class="section show">
+        <div class="small-title">A Special Invitation</div>
+
+        <h1>For My Beautiful Girl</h1>
+
+        <div class="photo-frame">
+          <img
+            id="myPhoto"
+            src="Love.jpeg"
+            alt="My Photo"
+          >
+        </div>
+
+        <div class="countdown-title" id="countdownTitle">
+          Countdown To Our Fine Dining
+        </div>
+
+        <div class="lock-note" id="lockNote">
+          The details will be unlocked H-7 before our fine dining night.
+        </div>
+
+        <div class="countdown">
+          <div class="count-box">
+            <div class="count-number" id="days">00</div>
+            <div class="count-label">Days</div>
+          </div>
+
+          <div class="count-box">
+            <div class="count-number" id="hours">00</div>
+            <div class="count-label">Hours</div>
+          </div>
+
+          <div class="count-box">
+            <div class="count-number" id="minutes">00</div>
+            <div class="count-label">Minutes</div>
+          </div>
+
+          <div class="count-box">
+            <div class="count-number" id="seconds">00</div>
+            <div class="count-label">Seconds</div>
+          </div>
+        </div>
+
+        <p class="subtitle">
+          Tonight is not just about dinner.<br>
+          It is about you, me, and a little moment that I want to make unforgettable.
+        </p>
+
+        <div class="gold-line"></div>
+
+        <button class="main-btn" id="openInvitationBtn" onclick="showQuestions()">
+          Invitation Locked
+        </button>
+      </div>
+
+      <div id="questions" class="section">
+        <div class="small-title">Before You See The Details</div>
+
+        <h1>Answer This First</h1>
+
+        <p class="subtitle">
+          Ada 3 pertanyaan kecil sebelum kamu tahu detail acaranya.
+        </p>
+
+        <div class="question-box">
+
+          <div class="question">
+            <p>1. Are you ready for a romantic fine dining night with me?</p>
+            <button class="option" onclick="selectOption(this)">Yes, I am ready</button>
+            <button class="option" onclick="selectOption(this)">Of course, with you</button>
+          </div>
+
+          <div class="question">
+            <p>2. Do you promise to come beautifully and happily?</p>
+            <button class="option" onclick="selectOption(this)">I promise</button>
+            <button class="option" onclick="selectOption(this)">I will come beautifully</button>
+          </div>
+
+          <div class="question">
+            <p>3. Will you let me make this night special for you?</p>
+            <button class="option" onclick="selectOption(this)">Yes, please</button>
+            <button class="option" onclick="selectOption(this)">I would love that</button>
+          </div>
+
+        </div>
+
+        <button class="main-btn" style="margin-top: 24px;" onclick="showDetails()">
+          Reveal The Invitation
+        </button>
+      </div>
+
+      <div id="details" class="section">
+        <div class="small-title">You Are Invited</div>
+
+        <h1>Fine Dining Evening</h1>
+
+        <p class="subtitle">
+          A special dinner prepared only for you, My Beautiful Girl.
+        </p>
+
+        <div class="gold-line"></div>
+
+        <div class="detail-grid">
+          <div class="detail-card">
+            <div class="detail-label">Date</div>
+            <div class="detail-value">Tuesday, 7 July 2026</div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-label">Time</div>
+            <div class="detail-value">07.00 PM WIB</div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-label">Location</div>
+            <div class="detail-value">
+              The Grand Dining Room<br>
+              Jakarta, Indonesia
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-label">Dress Code</div>
+            <div class="detail-value">
+              Elegant Dress<br>
+              Be as beautiful as always
+            </div>
+          </div>
+
+          <div class="detail-card">
+            <div class="detail-label">What To Expect</div>
+            <div class="detail-value">
+              Romantic dinner, warm conversation, beautiful ambience, and a night to remember.
+            </div>
+          </div>
+        </div>
+
+        <p class="love-note">
+          “I do not just want to take you to dinner.<br>
+          I want to celebrate you, appreciate you, and make you feel special.”
+        </p>
+
+        <a
+          href="https://wa.me/6289509127560?text=Yes%2C%20I%20will%20come%20to%20our%20fine%20dining%20night%20%E2%9D%A4%EF%B8%8F"
+          target="_blank"
+          style="text-decoration: none;"
+        >
+          <button class="main-btn" style="margin-top: 26px;">
+            Yes, I Will Come
+          </button>
+        </a>
+
+        <button class="secondary-btn" onclick="showIntroAgain()">
+          Back to Beginning
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let selectedQuestions = new Set();
+    let musicPlaying = false;
+    let heartsStarted = false;
+
+    /*
+      TANGGAL ACARA:
+      Format new Date(tahun, bulanIndex, tanggal, jam, menit, detik)
+
+      Bulan dimulai dari 0:
+      Januari = 0
+      Februari = 1
+      Maret = 2
+      April = 3
+      Mei = 4
+      Juni = 5
+      Juli = 6
+    */
+    const eventDate = new Date(2026, 6, 7, 19, 0, 0).getTime();
+
+    /*
+      Tombol Open Invitation aktif H-7.
+      Acara 7 Juli 2026 jam 19.00,
+      tombol aktif mulai 30 Juni 2026 jam 19.00.
+    */
+    const unlockDate = eventDate - (7 * 24 * 60 * 60 * 1000);
+
+    window.addEventListener("load", function () {
+      updateCountdown();
+      updateInvitationButton();
+      startAutoplayFallback();
+    });
+
+    function isInvitationUnlocked() {
+      const now = new Date().getTime();
+      return now >= unlockDate;
+    }
+
+    function updateInvitationButton() {
+      const openButton = document.getElementById("openInvitationBtn");
+      const lockNote = document.getElementById("lockNote");
+
+      if (!openButton) return;
+
+      if (isInvitationUnlocked()) {
+        openButton.disabled = false;
+        openButton.innerText = "Open Invitation";
+
+        if (lockNote) {
+          lockNote.innerText = "The invitation is now open. Tap the button below, beautiful girl ❤️";
+        }
+      } else {
+        openButton.disabled = true;
+        openButton.innerText = "Invitation Locked";
+
+        if (lockNote) {
+          lockNote.innerText = "The details will be unlocked H-7 before our fine dining night.";
+        }
+      }
+    }
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+
+      const countdownTitle = document.getElementById("countdownTitle");
+      const lockNote = document.getElementById("lockNote");
+
+      if (countdownTitle) {
+        countdownTitle.innerText = "Countdown To Our Fine Dining";
+      }
+
+      if (now < unlockDate) {
+        if (lockNote) {
+          lockNote.innerText = "The details will be unlocked H-7 before our fine dining night.";
+        }
+      } else {
+        if (lockNote) {
+          lockNote.innerText = "The invitation is now open. Tap the button below, beautiful girl ❤️";
+        }
+      }
+
+      const distance = eventDate - now;
+
+      if (distance <= 0) {
+        document.getElementById("days").innerText = "00";
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        updateInvitationButton();
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+
+      document.getElementById("days").innerText = String(days).padStart(2, "0");
+      document.getElementById("hours").innerText = String(hours).padStart(2, "0");
+      document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
+
+      updateInvitationButton();
+    }
+
+    setInterval(updateCountdown, 1000);
+
+    function showQuestions() {
+      tryAutoplayMusic();
+
+      if (!isInvitationUnlocked()) {
+        alert("Invitation ini baru bisa dibuka H-7 ya, beautiful girl ❤️");
+        return;
+      }
+
+      document.getElementById("intro").classList.remove("show");
+      document.getElementById("questions").classList.add("show");
+    }
+
+    function selectOption(button) {
+      const question = button.parentElement;
+      const options = question.querySelectorAll(".option");
+
+      options.forEach(function (option) {
+        option.classList.remove("selected");
+      });
+
+      button.classList.add("selected");
+
+      const allQuestions = Array.from(document.querySelectorAll(".question"));
+      const questionIndex = allQuestions.indexOf(question);
+
+      selectedQuestions.add(questionIndex);
+    }
+
+    function showDetails() {
+      if (selectedQuestions.size < 3) {
+        alert("Jawab dulu 3 pertanyaannya ya, beautiful girl ❤️");
+        return;
+      }
+
+      document.getElementById("questions").classList.remove("show");
+      document.getElementById("details").classList.add("show");
+
+      if (!heartsStarted) {
+        createHearts();
+        heartsStarted = true;
+      }
+    }
+
+    function showIntroAgain() {
+      document.getElementById("details").classList.remove("show");
+      document.getElementById("intro").classList.add("show");
+      updateInvitationButton();
+      updateCountdown();
+    }
+
+    function tryAutoplayMusic() {
+      const music = document.getElementById("bgMusic");
+      const button = document.getElementById("musicBtn");
+
+      music.volume = 0.6;
+
+      music.play()
+        .then(function () {
+          musicPlaying = true;
+          button.innerText = "Pause Music";
+        })
+        .catch(function () {
+          musicPlaying = false;
+          button.innerText = "Tap To Play Music";
+        });
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById("bgMusic");
+      const button = document.getElementById("musicBtn");
+
+      if (musicPlaying) {
+        music.pause();
+        musicPlaying = false;
+        button.innerText = "Play Music";
+      } else {
+        tryAutoplayMusic();
+      }
+    }
+
+    function startAutoplayFallback() {
+      const playAfterFirstTap = function () {
+        if (!musicPlaying) {
+          tryAutoplayMusic();
+        }
+
+        document.removeEventListener("click", playAfterFirstTap);
+        document.removeEventListener("touchstart", playAfterFirstTap);
+      };
+
+      document.addEventListener("click", playAfterFirstTap);
+      document.addEventListener("touchstart", playAfterFirstTap);
+    }
+
+    function createHearts() {
+      setInterval(function () {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤";
+
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 16 + 14 + "px";
+        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(function () {
+          heart.remove();
+        }, 7000);
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
