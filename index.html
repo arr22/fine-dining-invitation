@@ -147,6 +147,65 @@
       border: 3px solid rgba(20, 12, 8, 0.95);
     }
 
+    .love-title {
+      color: #d4af37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .lock-note {
+      color: #cbb78d;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+
+    .typing-love {
+      width: fit-content;
+      max-width: 100%;
+      margin: 24px auto 28px;
+      color: #fff5dd;
+      font-size: 56px;
+      font-weight: normal;
+      letter-spacing: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 4px solid #d4af37;
+      text-shadow:
+        0 0 10px rgba(212, 175, 55, 0.65),
+        0 0 24px rgba(212, 175, 55, 0.42),
+        0 0 42px rgba(255, 240, 176, 0.2);
+      animation:
+        typing 2.7s steps(10, end) infinite,
+        blinkCursor 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      0% {
+        width: 0;
+      }
+      45% {
+        width: 10ch;
+      }
+      75% {
+        width: 10ch;
+      }
+      100% {
+        width: 0;
+      }
+    }
+
+    @keyframes blinkCursor {
+      0%, 100% {
+        border-color: transparent;
+      }
+      50% {
+        border-color: #d4af37;
+      }
+    }
+
     .subtitle {
       color: #ddcaa5;
       font-size: 18px;
@@ -179,15 +238,9 @@
       margin: 6px;
     }
 
-    .main-btn:hover:not(:disabled) {
+    .main-btn:hover {
       background: #fff0b0;
       transform: translateY(-2px);
-    }
-
-    .main-btn:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      transform: none;
     }
 
     .secondary-btn {
@@ -212,50 +265,6 @@
       display: block;
     }
 
-    .countdown-title {
-      color: #d4af37;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 12px;
-      margin-bottom: 12px;
-    }
-
-    .lock-note {
-      color: #cbb78d;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-top: -8px;
-      margin-bottom: 18px;
-    }
-
-    .countdown {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin: 20px 0 26px;
-    }
-
-    .count-box {
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      border-radius: 16px;
-      padding: 14px 8px;
-      background: rgba(255, 255, 255, 0.045);
-    }
-
-    .count-number {
-      font-size: 26px;
-      color: #fff5dd;
-      font-weight: bold;
-    }
-
-    .count-label {
-      color: #d4af37;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-top: 5px;
-    }
-
     .question-box {
       margin-top: 24px;
       text-align: left;
@@ -274,31 +283,6 @@
       font-size: 17px;
       margin-bottom: 12px;
       line-height: 1.5;
-    }
-
-    .option {
-      display: block;
-      width: 100%;
-      margin-top: 9px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #f7ead1;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      text-align: left;
-      font-size: 15px;
-    }
-
-    .option:hover {
-      background: rgba(212, 175, 55, 0.2);
-      border-color: rgba(212, 175, 55, 0.65);
-    }
-
-    .option.selected {
-      background: rgba(212, 175, 55, 0.9);
-      color: #1b1208;
-      border-color: #d4af37;
-      font-weight: bold;
     }
 
     .essay-answer {
@@ -451,19 +435,19 @@
         height: 135px;
       }
 
+      .typing-love {
+        font-size: 36px;
+        letter-spacing: 3px;
+      }
+
       .subtitle,
       .detail-value {
         font-size: 15.5px;
       }
 
-      .countdown,
       .outfit-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
-      }
-
-      .count-number {
-        font-size: 23px;
       }
 
       .music-status {
@@ -471,6 +455,13 @@
         bottom: 10px;
         font-size: 12px;
         padding: 9px 13px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .typing-love {
+        font-size: 31px;
+        letter-spacing: 2px;
       }
     }
   </style>
@@ -502,35 +493,15 @@
           >
         </div>
 
-        <div class="countdown-title" id="countdownTitle">
-          Countdown To Our Fine Dining
+        <div class="love-title">
+          A Little Message For You
         </div>
 
         <div class="lock-note" id="lockNote">
           The invitation is open now. Tap the button below, beautiful girl ❤️
         </div>
 
-        <div class="countdown">
-          <div class="count-box">
-            <div class="count-number" id="days">00</div>
-            <div class="count-label">Days</div>
-          </div>
-
-          <div class="count-box">
-            <div class="count-number" id="hours">00</div>
-            <div class="count-label">Hours</div>
-          </div>
-
-          <div class="count-box">
-            <div class="count-number" id="minutes">00</div>
-            <div class="count-label">Minutes</div>
-          </div>
-
-          <div class="count-box">
-            <div class="count-number" id="seconds">00</div>
-            <div class="count-label">Seconds</div>
-          </div>
-        </div>
+        <div class="typing-love">I LOVE YOU</div>
 
         <p class="subtitle">
           Tonight is not just about dinner.<br>
@@ -610,6 +581,7 @@
             <div class="detail-label">Dress Code</div>
             <div class="detail-value">
               Maroon Red Outfit
+
               <div class="outfit-grid">
                 <div class="outfit-card">
                   <svg viewBox="0 0 180 190" role="img" aria-label="Maroon red dress outfit for woman">
@@ -699,96 +671,14 @@
   <script>
     let musicPlaying = false;
     let heartsStarted = false;
-
-    /*
-      TANGGAL ACARA:
-      Format new Date(tahun, bulanIndex, tanggal, jam, menit, detik)
-
-      Bulan dimulai dari 0:
-      Januari = 0
-      Februari = 1
-      Maret = 2
-      April = 3
-      Mei = 4
-      Juni = 5
-      Juli = 6
-    */
-    const eventDate = new Date(2026, 6, 7, 19, 0, 0).getTime();
-
-    /*
-      Tombol Open Invitation aktif H-7.
-      Acara 7 Juli 2026 jam 19.00,
-      tombol aktif mulai 30 Juni 2026 jam 19.00.
-    */
-    const unlockDate = eventDate - (7 * 24 * 60 * 60 * 1000);
+    let heartsInterval = null;
 
     window.addEventListener("load", function () {
-      updateCountdown();
-      updateInvitationButton();
       startAutoplayFallback();
     });
 
-    function isInvitationUnlocked() {
-      return true;
-    }
-
-    function updateInvitationButton() {
-      const openButton = document.getElementById("openInvitationBtn");
-      const lockNote = document.getElementById("lockNote");
-
-      if (openButton) {
-        openButton.disabled = false;
-        openButton.innerText = "Open Invitation";
-      }
-
-      if (lockNote) {
-        lockNote.innerText = "The invitation is open now. Tap the button below, beautiful girl ❤️";
-      }
-    }
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-
-      const countdownTitle = document.getElementById("countdownTitle");
-      const lockNote = document.getElementById("lockNote");
-
-      if (countdownTitle) {
-        countdownTitle.innerText = "Countdown To Our Fine Dining";
-      }
-
-      if (lockNote) {
-        lockNote.innerText = "The invitation is open now. Tap the button below, beautiful girl ❤️";
-      }
-
-      const distance = eventDate - now;
-
-      if (distance <= 0) {
-        document.getElementById("days").innerText = "00";
-        document.getElementById("hours").innerText = "00";
-        document.getElementById("minutes").innerText = "00";
-        document.getElementById("seconds").innerText = "00";
-        updateInvitationButton();
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((distance / (1000 * 60)) % 60);
-      const seconds = Math.floor((distance / 1000) % 60);
-
-      document.getElementById("days").innerText = String(days).padStart(2, "0");
-      document.getElementById("hours").innerText = String(hours).padStart(2, "0");
-      document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
-      document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
-
-      updateInvitationButton();
-    }
-
-    setInterval(updateCountdown, 1000);
-
     function showQuestions() {
       tryAutoplayMusic();
-
 
       document.getElementById("intro").classList.remove("show");
       document.getElementById("questions").classList.add("show");
@@ -804,6 +694,7 @@
 
     function showDetails() {
       const answers = getEssayAnswers();
+
       const allAnswered = answers.every(function (answer) {
         return answer.length > 0;
       });
@@ -824,19 +715,13 @@
 
     function prepareWhatsAppMessage() {
       const answers = getEssayAnswers();
+
       const message =
-        "Yes, I will come to our fine dining night ❤️" +
-        "
-
-My answers:" +
-        "
-1. " + answers[0] +
-        "
-
-2. " + answers[1] +
-        "
-
-3. " + answers[2];
+        "Yes, I will come to our fine dining night ❤️\n\n" +
+        "My answers:\n" +
+        "1. " + answers[0] + "\n\n" +
+        "2. " + answers[1] + "\n\n" +
+        "3. " + answers[2];
 
       document.getElementById("waLink").href =
         "https://wa.me/6289509127560?text=" + encodeURIComponent(message);
@@ -845,13 +730,13 @@ My answers:" +
     function showIntroAgain() {
       document.getElementById("details").classList.remove("show");
       document.getElementById("intro").classList.add("show");
-      updateInvitationButton();
-      updateCountdown();
     }
 
     function tryAutoplayMusic() {
       const music = document.getElementById("bgMusic");
       const button = document.getElementById("musicBtn");
+
+      if (!music) return;
 
       music.volume = 0.6;
 
@@ -869,6 +754,8 @@ My answers:" +
     function toggleMusic() {
       const music = document.getElementById("bgMusic");
       const button = document.getElementById("musicBtn");
+
+      if (!music) return;
 
       if (musicPlaying) {
         music.pause();
@@ -894,8 +781,11 @@ My answers:" +
     }
 
     function createHearts() {
-      setInterval(function () {
+      if (heartsInterval) return;
+
+      heartsInterval = setInterval(function () {
         const heart = document.createElement("div");
+
         heart.classList.add("heart");
         heart.innerHTML = "❤";
 
