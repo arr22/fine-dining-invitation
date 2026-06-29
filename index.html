@@ -70,6 +70,8 @@
       width: 180px;
       height: 180px;
       background: radial-gradient(circle, rgba(212, 175, 55, 0.18), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     .card::after {
@@ -80,6 +82,8 @@
       width: 220px;
       height: 220px;
       background: radial-gradient(circle, rgba(130, 20, 35, 0.25), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
     }
 
     .content {
@@ -124,6 +128,7 @@
         0 0 25px rgba(212, 175, 55, 0.28),
         0 12px 30px rgba(0, 0, 0, 0.45);
       position: relative;
+      z-index: 2;
     }
 
     .photo-frame::after {
@@ -163,46 +168,36 @@
     }
 
     .typing-love {
-      width: fit-content;
+      width: 100%;
       max-width: 100%;
+      min-height: 76px;
       margin: 24px auto 28px;
       color: #fff5dd;
       font-size: 56px;
       font-weight: normal;
       letter-spacing: 6px;
       white-space: nowrap;
-      overflow: hidden;
-      border-right: 4px solid #d4af37;
+      text-align: center;
+      overflow: visible;
       text-shadow:
         0 0 10px rgba(212, 175, 55, 0.65),
         0 0 24px rgba(212, 175, 55, 0.42),
         0 0 42px rgba(255, 240, 176, 0.2);
-      animation:
-        typing 2.7s steps(10, end) infinite,
-        blinkCursor 0.75s step-end infinite;
     }
 
-    @keyframes typing {
-      0% {
-        width: 0;
-      }
-      45% {
-        width: 10ch;
-      }
-      75% {
-        width: 10ch;
-      }
-      100% {
-        width: 0;
-      }
+    .typing-cursor {
+      display: inline-block;
+      margin-left: 4px;
+      color: #d4af37;
+      animation: blinkCursor 0.75s step-end infinite;
     }
 
     @keyframes blinkCursor {
       0%, 100% {
-        border-color: transparent;
+        opacity: 0;
       }
       50% {
-        border-color: #d4af37;
+        opacity: 1;
       }
     }
 
@@ -236,6 +231,8 @@
       font-weight: bold;
       letter-spacing: 1px;
       margin: 6px;
+      position: relative;
+      z-index: 20;
     }
 
     .main-btn:hover {
@@ -251,6 +248,8 @@
       border-radius: 999px;
       font-size: 15px;
       margin: 6px;
+      position: relative;
+      z-index: 20;
     }
 
     .secondary-btn:hover {
@@ -259,6 +258,8 @@
 
     .section {
       display: none;
+      position: relative;
+      z-index: 5;
     }
 
     .show {
@@ -268,6 +269,8 @@
     .question-box {
       margin-top: 24px;
       text-align: left;
+      position: relative;
+      z-index: 20;
     }
 
     .question {
@@ -276,6 +279,8 @@
       border-radius: 18px;
       padding: 18px;
       margin-bottom: 16px;
+      position: relative;
+      z-index: 20;
     }
 
     .question p {
@@ -298,6 +303,9 @@
       font-size: 15.5px;
       line-height: 1.6;
       outline: none;
+      position: relative;
+      z-index: 30;
+      pointer-events: auto;
     }
 
     .essay-answer::placeholder {
@@ -399,7 +407,7 @@
       position: fixed;
       bottom: 18px;
       right: 18px;
-      z-index: 5;
+      z-index: 50;
       background: rgba(18, 12, 9, 0.92);
       border: 1px solid rgba(212, 175, 55, 0.6);
       color: #d4af37;
@@ -438,6 +446,7 @@
       .typing-love {
         font-size: 36px;
         letter-spacing: 3px;
+        min-height: 52px;
       }
 
       .subtitle,
@@ -501,7 +510,9 @@
           The invitation is open now. Tap the button below, beautiful girl ❤️
         </div>
 
-        <div class="typing-love">I LOVE YOU</div>
+        <div class="typing-love">
+          <span id="loveText"></span><span class="typing-cursor">|</span>
+        </div>
 
         <p class="subtitle">
           Tonight is not just about dinner.<br>
@@ -605,6 +616,7 @@
                     <path d="M78 176 H55" stroke="#2a120d" stroke-width="6" stroke-linecap="round" />
                     <path d="M102 176 H125" stroke="#2a120d" stroke-width="6" stroke-linecap="round" />
                   </svg>
+
                   <div class="outfit-title">For Her</div>
                   <div class="outfit-desc">Elegant maroon dress with a romantic dinner look.</div>
                 </div>
@@ -628,6 +640,7 @@
                     <path d="M72 166 H53" stroke="#2a120d" stroke-width="6" stroke-linecap="round" />
                     <path d="M108 166 H127" stroke="#2a120d" stroke-width="6" stroke-linecap="round" />
                   </svg>
+
                   <div class="outfit-title">For Him</div>
                   <div class="outfit-desc">Maroon shirt, neat and classy for fine dining.</div>
                 </div>
@@ -672,10 +685,50 @@
     let musicPlaying = false;
     let heartsStarted = false;
     let heartsInterval = null;
+    let typingInterval = null;
 
     window.addEventListener("load", function () {
+      startTypingLove();
       startAutoplayFallback();
     });
+
+    function startTypingLove() {
+      const textElement = document.getElementById("loveText");
+      const fullText = "I LOVE YOU";
+
+      if (!textElement) return;
+
+      let index = 0;
+      let isDeleting = false;
+      let pauseCounter = 0;
+
+      if (typingInterval) {
+        clearInterval(typingInterval);
+      }
+
+      typingInterval = setInterval(function () {
+        if (!isDeleting) {
+          textElement.innerText = fullText.substring(0, index + 1);
+          index++;
+
+          if (index === fullText.length) {
+            pauseCounter++;
+
+            if (pauseCounter >= 8) {
+              isDeleting = true;
+              pauseCounter = 0;
+            }
+          }
+        } else {
+          textElement.innerText = fullText.substring(0, index - 1);
+          index--;
+
+          if (index === 0) {
+            isDeleting = false;
+          }
+        }
+      }, 170);
+    }
 
     function showQuestions() {
       tryAutoplayMusic();
@@ -736,7 +789,7 @@
       const music = document.getElementById("bgMusic");
       const button = document.getElementById("musicBtn");
 
-      if (!music) return;
+      if (!music || !button) return;
 
       music.volume = 0.6;
 
@@ -755,7 +808,7 @@
       const music = document.getElementById("bgMusic");
       const button = document.getElementById("musicBtn");
 
-      if (!music) return;
+      if (!music || !button) return;
 
       if (musicPlaying) {
         music.pause();
